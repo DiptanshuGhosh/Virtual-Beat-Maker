@@ -4,7 +4,6 @@ An interactive drum machine and digital piano built with **Python** and **Pygame
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Pygame](https://img.shields.io/badge/Pygame-2.x-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ---
 
@@ -130,6 +129,3 @@ Computer Science Project (2025–26)
 
 ---
 
-## 📄 License
-
-This project is open-sourced for educational purposes under the [MIT License](LICENSE).
