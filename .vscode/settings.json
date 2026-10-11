@@ -3,11 +3,15 @@
         "Angelos",
         "blit",
         "collidepoint",
+        "ffprobe",
+        "frombuffer",
+        "KMOD",
         "MOUSEBUTTONDOWN",
         "MOUSEBUTTONUP",
         "rects",
         "Roboto",
         "Terserah",
+        "tobytes",
         "Transcity"
     ]
 }
