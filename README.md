@@ -1,131 +1,169 @@
-# 🥁 Virtual Drumkit — The Beat Maker
+# 🥁🎹 Virtual Beat Maker
 
-An interactive drum machine and digital piano built with **Python** and **Pygame**, letting you create, edit, save, and play custom drum beats and piano melodies through a clean, visual grid-based interface.
+A CBSE Class 12 Computer Science practical project (2025–26) built with **Python** and **Pygame**. It contains two programs:
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Pygame](https://img.shields.io/badge/Pygame-2.x-green.svg)
+- **The Beat Maker** - a visual drum machine / step sequencer
+- **Python Programmable Piano** - a playable 88-key piano
+
+Each program has a **V1** (the first working version) and a **V2** (the upgraded version), so the improvements are easy to compare.
+
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![Pygame](https://img.shields.io/badge/Pygame-2.x-green.svg)](https://www.pygame.org/)
+
+<p align="center">
+  <img src="images/drumkit-v2-grid.png" alt="The Beat Maker (V2) - step sequencer grid" width="48%">
+  <img src="images/piano-v2.png" alt="Python Programmable Piano (V2)" width="48%">
+</p>
 
 ---
 
-## ✨ Features
+## 📁 Project Structure
 
-### 🥁 Drum Machine
-- **6-instrument drum kit** — Hi-Hat, Snare, Bass Drum, Crash Cymbal, Floor Tom, and Clap
-- **Visual step-sequencer grid** — click any cell to toggle a beat on/off (green = active, gray = inactive)
-- **Real-time beat tracker** — a moving highlight shows exactly where you are in the loop
-- **Adjustable BPM** — speed up or slow down playback in increments (default: 240 BPM)
-- **Variable loop length** — from 8 up to 48+ beats per cycle
-- **Channel mute/unmute** — isolate individual instruments while the rest keep playing
-- **Play / Pause** — control playback without losing your pattern
-- **Clear board** — instantly reset the grid
-- **Save & Load system** — name and save beats to `saved_beats.txt`, then reload, edit, or delete them later
-
-### 🎹 Digital Piano
-- **Playable on-screen keyboard** — click keys (or use mapped computer-keyboard shortcuts) to play notes in real time
-- **Multi-octave layout** with clearly labeled white and black keys
-- **Sustain / release handling** so notes stop cleanly when a key is lifted
-- **Layered with the drum grid** — play piano over your drum loop for quick melody + rhythm sketches
-- **Visual key-press feedback** — pressed keys highlight so you can follow along visually
-
-### ⚙️ Under the Hood
-- Built entirely with `pygame` (`mixer`, `font`, `display`, `event`, `time.Clock`, `draw`)
-- Multi-channel audio via `pygame.mixer.set_num_channels()` to avoid clipping when several sounds play at once
-- Runs on a 60 FPS main loop for smooth animation and accurate timing
-- Beat timing calculated as `beat_length = 3600 // bpm` for tempo-accurate playback
-- Beats stored and parsed as structured strings for easy persistence and reloading
+```
+Virtual-Beat-Maker/
+├── Cs Project_DrumKIt/
+│   ├── mainV1.py          # Drum machine, version 1
+│   └── mainV2.py          # Drum machine, version 2 (adds pattern chaining)
+├── Cs project_Piano/
+│   ├── mainV1.py          # Piano, version 1 (original)
+│   ├── mainV2.py          # Piano, version 2 (upgraded)
+│   └── Piano_List.py      # Note names and key layout used by the piano
+├── sounds/                # Drum samples (.wav)
+├── Notes/                 # 88 piano note samples (A0.wav ... C8.wav)
+├── images/                # Screenshots used in this README
+├── saved_beats.json       # Saved drum patterns (auto-generated)
+├── Roboto-Bold.ttf, Angelos.ttf, Terserah.ttf, Transcity DEMO.otf   # Fonts
+├── logo.png
+└── README.md
+```
 
 ---
 
 ## 🖥️ Requirements
 
-**Hardware**
-- Intel i3 processor or above
-- 2 GB RAM or more
-- 2 GB free disk space
-
-**Software**
-- Windows 7 or later (or any OS with Python + Pygame support)
 - Python 3.8+
+- `pygame` and `numpy`
 - Recommended IDE: Visual Studio Code
 
----
-
-## 📦 Installation
-
 ```bash
-# Clone the repository
-git clone https://github.com/<your-username>/virtual-drumkit.git
-cd virtual-drumkit
-
-# Install dependencies
-pip install pygame
-
-# Run the app
-python beat_maker.py
+pip install pygame numpy
 ```
 
+## 🚀 How to Run
+
+```bash
+git clone https://github.com/DiptanshuGhosh/Virtual-Beat-Maker.git
+cd Virtual-Beat-Maker
+
+# Drum machine (run from the project root so it finds sounds/ and the fonts)
+python "Cs Project_DrumKIt/mainV2.py"
+
+# Piano
+python "Cs project_Piano/mainV2.py"
+```
+
+> **Note:** the drum machine loads its sounds with Windows-style paths (`sounds\kick.wav`), so it is written for **Windows** and should be started from the project root folder. The piano V2 works on any OS.
+
 ---
 
-## 🎮 Controls
+## 🥁 The Beat Maker
+
+![The Beat Maker V2 - step sequencer grid with playhead, hit flashes and level meters](images/drumkit-v2-grid.png)
+
+**Features (V1 and V2)**
+
+- 6-instrument kit: Hi Hat, Snare, Bass Drum, Crash, Clap, Floor Tom
+- Step-sequencer grid with a moving playhead and per-hit flash animation
+- Three hit strengths per cell (soft / medium / hard) via click-to-cycle velocity
+- Adjustable BPM and loop length, optional swing, and a 4-beat count-in
+- Mute / unmute each instrument, with a level meter under each label
+- Save, load and delete named beats (stored in `saved_beats.json`)
+- Export the current pattern as a WAV file
+- Built-in help overlay (press **H**)
+
+**What's new in V2**
+
+- **Pattern chaining** - queue several saved beats, then play them back to back like a song (**Add to Chain / Play Chain / Clear Chain** in the Load menu)
+- Export is simplified to **WAV only** (V1 also offered MP3, which needed `pydub` and `ffmpeg` installed)
+
+![Load menu with the Chain Queue panel](images/drumkit-v2-chain.png)
+
+**Drum controls**
 
 | Action | How |
-|---|---|
-| Toggle a drum beat | Click a grid cell |
-| Play / Pause | Click the **Play/Pause** button |
-| Adjust tempo | **+5 / -5** BPM buttons |
-| Adjust loop length | **+1 / -1** beats buttons |
-| Mute/unmute instrument | Click the instrument label |
-| Clear grid | Click **Clear Board** |
-| Save a beat | Click **Save Beat** → type a name |
-| Load a beat | Click **Load Beat** → select from list |
-| Delete a saved beat | Click **Delete Beat** in the Load menu |
-| Play piano notes | Click on-screen keys or use mapped keyboard keys |
+| --- | --- |
+| Play / pause | **Space** or the Play/Pause button |
+| Change BPM | **Up / Down** arrows (±5) or the BPM buttons |
+| Cycle a cell's strength (off → soft → medium → hard) | Left-click the cell |
+| Clear a cell | Right-click the cell |
+| Save a beat | **Ctrl+S** or **Save Beat** |
+| Load / delete a beat | **Ctrl+L** or **Load Beat** |
+| Export to WAV | **W** or **Export WAV** |
+| Help overlay | **H** |
+
+Press **H** in the app to show the in-app controls overlay:
+
+![In-app controls overlay](images/drumkit-v2-help.png)
 
 ---
 
-## 🗂️ Project Structure
+## 🎹 Python Programmable Piano
 
-virtual-drumkit/
-├── beat_maker.py # Main application (drum grid, piano, UI, game loop)
-├── sounds/ # .wav files for drum samples and piano notes
-├── saved_beats.txt # Auto-generated file storing saved beat patterns
-├── Roboto-Bold.ttf # UI font
-└── README.md
---
+![Python Programmable Piano V2 - recording, sustain pedal and lit keys](images/piano-v2.png)
+
+**What's new in V2 (compared to V1)**
+
+- **All 88 keys fit on screen** (V1's keyboard was wider than its window)
+- **Octaves 0–8 all work**, so A0, A#0, B0 and C8 are playable too. Notes that don't exist on a real piano are ignored instead of crashing V1
+- **Hold and release** - a note rings while the key is held and fades out when released
+- **Sustain pedal** on **Space**
+- Keys stay lit while held; sustained notes stay dimly lit
+- **Volume control** with `-` and `=`
+- **Record, play back, save and load** a melody
+- Works on Windows, Mac and Linux, with no repeated image loading and a cleaner `Piano` class
+
+**Piano controls**
+
+| Action | How |
+| --- | --- |
+| Play notes | Click the keys, or use the keyboard: **Z S X D C V G B H N J M** (left hand) and **R 5 T 6 Y U 8 I 9 O 0 P** (right hand) |
+| Change left-hand octave | **Up / Down** arrows |
+| Change right-hand octave | **Left / Right** arrows |
+| Sustain | Hold **Space** |
+| Volume | **-** / **=** |
+| Record / stop | **F5** |
+| Play / stop playback | **F6** |
+| Save / load melody | **F7** / **F8** (`saved_melody.txt`) |
+
+The grey strips on the keyboard show which computer key plays which note in each hand's current octave.
+
+---
 
 ## 🧠 Concepts Demonstrated
 
-- Event-driven programming & GUI development
-- 2D grid-based data structures for state management
-- Real-time audio processing with multiple simultaneous channels
-- File I/O for persistent data storage/retrieval
-- Object-oriented function design and modular code organization
-- Timing and animation mathematics for a 60 FPS render loop
-
----
+- Event-driven programming and GUI development
+- 2D grid data structures for state management
+- Real-time audio with multiple simultaneous channels
+- File I/O for saving and loading (JSON and text)
+- Object-oriented design (classes for the drum machine and the piano)
+- Timing and animation maths for a 60 FPS render loop
 
 ## 📋 Roadmap
 
-- [ ] Export beats as `.wav`/`.mp3` audio files
-- [ ] Record and play back piano melodies alongside drum loops
-- [ ] Add more instrument/sound kits (selectable themes)
-- [ ] MIDI input support for the piano
-- [ ] Dark/light theme toggle
+- [ ] Play the piano over a drum loop in one program
+- [ ] More drum kits / sound themes (a `kit2` sample set is already included)
+- [ ] MIDI input for the piano
+- [ ] Export piano recordings as audio
+- [ ] Dark / light theme toggle
 
 ---
 
 ## 📚 Credits / References
 
-- LeMaster Tech — "How to Program a Drum Kit in Python! Beat Making Code Tutorial!" (YouTube, May 2022)
-- Stack Overflow — How does `collidepoint()` work in Pygame?
+- LeMaster Tech - "How to Program a Drum Kit in Python! Beat Making Code Tutorial!" (YouTube, May 2022)
+- Stack Overflow - How does `collidepoint()` work in Pygame?
 - GitHub community references
-
----
 
 ## 👤 Author
 
-**Diptanshu Ghosh**
-Computer Science Project (2025–26)
-
----
-
+**Diptanshu Ghosh** - Computer Science Project (2025–26)
